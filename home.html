@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sell Your Friend Prank</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background: #232f3e;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: white;
+        }
+
+        h1 {
+            font-size: 1.8em;
+            margin: 0;
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+
+        .search-bar input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 300px;
+        }
+
+        .search-bar button {
+            padding: 10px;
+            background-color: #febd69;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+
+        .search-bar button:hover {
+            background-color: #f3a847;
+        }
+
+        main {
+            padding: 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        h2 {
+            color: #ff6600;
+            border-bottom: 2px solid #ffcc00;
+            padding-bottom: 10px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #232f3e;
+            color: white;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Prank Store</h1>
+        <nav>
+            <a href="#how-it-works">How It Works</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#poll">Poll</a>
+            <a href="#feedback">Feedback</a>
+            <a href="#user-pranks">User  Pranks</a>
+        </nav>
+    </header>
+    
+    <div class="search-bar">
+        <input type="text" placeholder="Search for pranks...">
+        <button>Search</button>
+    </div>
+
+    <main>
+        <section id="how-it-works">
+            <h2>How It Works</h2>
+            <ol>
+                <li>Choose a friend to 'sell.'</li>
+                <li>Create a funny profile for them.</li>
+                <li>Share the profile on social media with #SellYourFriendPrank!</li>
+            </ol>
+        </section>
+
+        <section id="gallery">
+            <h2>Gallery</h2>
+            <p>Check out our funny images!</p>
+            <!-- Placeholder for gallery content -->
+        </section>
+
+        <section id="poll" class="form-section">
+            <h2>Who Would You Sell?</h2>
+            <form id="poll-form">
+                <input type="text" id="friend-name" placeholder="Enter your friend's name" required>
+                <button type="submit">Submit</button>
+            </form>
+            <div id="poll-result"></div>
+        </section>
+
+        <section id="feedback" class="form-section">
+            <h2>Feedback</h2>
+            <form id="feedback-form">
+                <textarea id="feedback-text" placeholder="Leave your feedback here..." rows="4" required></textarea>
+                <button type ="submit">Send Feedback</button>
+            </form>
+            <div id="feedback-result"></div>
+        </section>
+
+        <section id="description" class="form-section">
+            <h2>Description</h2>
+            <form id="description-form">
+                <textarea id="description-text" placeholder="Describe your prank!" rows="4" required></textarea>
+                <input type="file" id="prank-image" accept="image/*" required>
+                <button type="submit">Submit Description</button>
+            </form>
+            <div id="description-list"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Prank Store. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById('poll-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const friendName = document.getElementById('friend-name').value;
+            document.getElementById('poll-result').innerText = `You would sell ${friendName}! 😂`;
+            document.getElementById('friend-name').value = ''; // Clear the input
+        });
+
+        document.getElementById('feedback-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const feedbackText = document.getElementById('feedback-text').value;
+            document.getElementById('feedback-result').innerText = `Thank you for your feedback: "${feedbackText}"`;
+            document.getElementById('feedback-text').value = ''; // Clear the input
+        });
+
+        document.getElementById('description-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const descriptionText = document.getElementById('description-text').value;
+            const prankImage = document.getElementById('prank-image').files[0];
+            const reader = new FileReader();
+            reader.onloadend = function() {
+                const submission = {
+                    text: descriptionText,
+                    image: reader.result,
+                    id: Date.now(),
+                    ratings: []
+                };
+                submissions.push(submission);
+                document.getElementById('description-text').value = ''; // Clear the input
+                document.getElementById('prank-image').value = ''; // Clear the file input
+            };
+            if (prankImage) {
+                reader.readAsDataURL(prankImage);
+            }
+        });
+    </script>
+</body>
+</html>
